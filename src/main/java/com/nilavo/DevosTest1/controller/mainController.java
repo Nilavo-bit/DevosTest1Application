@@ -13,6 +13,7 @@ public class mainController {
     @GetMapping("/first-Url")
     public ResponseEntity<String> first()
     {
-        return new ResponseEntity<>("Welcome To Main Controller Class:"+this.getClass().getName(), HttpStatus.OK);
+        return new ResponseEntity<>("Welcome To Main Controller Class:"+this.getClass().getName(),
+                HttpStatus.OK);
     }
 }
