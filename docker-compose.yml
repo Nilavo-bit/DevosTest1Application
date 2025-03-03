@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # Set root password for MySQL
+      MYSQL_DATABASE: mydatabase         # The database to create
+      MYSQL_USER: user                   # Your MySQL username
+      MYSQL_PASSWORD: password           # Your MySQL user password
+    ports:
+      - "3307:3306"                      # Expose MySQL port to the host machine
+    networks:
+      - app-network
+    volumes:
+      - mysql-data:/var/lib/mysql        # Persist MySQL data
+
+  spring-boot-app:
+    image: nilavodas/devopsimagedeploy0.0.1   # Use your Spring Boot Docker image
+    container_name: spring-boot-app
+    depends_on:
+      - mysql                            # Ensure MySQL is started first
+    ports:
+      - "8081:8081"                      # Expose Spring Boot app port
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/mydatabase  # MySQL connection URL
+      SPRING_DATASOURCE_USERNAME: user                            # MySQL username
+      SPRING_DATASOURCE_PASSWORD: password                        # MySQL password
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+    driver: local
