@@ -1,5 +1,6 @@
 package com.nilavo.DevosTest1;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -8,6 +9,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.*;
+import java.util.logging.Logger;
 
 @SpringBootApplication
 public class DevosTest1Application {
@@ -15,6 +17,7 @@ public class DevosTest1Application {
 	public static void main(String[] args) {
 
 		SpringApplication.run(DevosTest1Application.class, args);
+
 
 		ExecutorService service = Executors.newFixedThreadPool(3);
 		ThreadWithCallable task1 = new ThreadWithCallable(10);
@@ -33,13 +36,6 @@ public class DevosTest1Application {
 		} catch (InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
-
-
-
-
-
-
-
 	}
 
 }
